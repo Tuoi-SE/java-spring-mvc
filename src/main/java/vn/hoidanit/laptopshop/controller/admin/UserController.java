@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.validation.Valid;
+
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 import vn.hoidanit.laptopshop.domain.Role;
 import vn.hoidanit.laptopshop.domain.User;
@@ -50,8 +54,16 @@ public class UserController {
 
     @PostMapping(value = "/admin/user/create")
     public String createCreateUser(Model model,
-            @ModelAttribute("createUser") User tuoi,
+            @ModelAttribute("createUser") @Valid User tuoi, BindingResult newUserBindingResult,
             @RequestParam("hoidanitFile") MultipartFile file) {
+        List<FieldError> errors = newUserBindingResult.getFieldErrors();
+        for (FieldError error : errors) {
+            System.out.println(error.getField() + " - " + error.getDefaultMessage());
+        }
+        // validate
+        if (newUserBindingResult.hasErrors()) {
+            return "/admin/user/create";
+        }
         String avatar = this.uploadService.savaUploadFile(file, "avatar");
         String hashPassword = this.passwordEncoder.encode(tuoi.getPassword());
         tuoi.setAvatar(avatar);
@@ -61,7 +73,7 @@ public class UserController {
         return "redirect:/admin/user";
     }
 
-    // View Data
+    // View Detail Data
     @RequestMapping("/admin/user/{id}")
     public String getDetailUser(Model model, @PathVariable long id) {
         User user = this.userService.getUserById(id);
@@ -79,7 +91,7 @@ public class UserController {
     }
 
     @PostMapping("/admin/user/update")
-    public String updateUpdateUser(Model model, @ModelAttribute("updateUser") User user,
+    public String updateUpdateUser(Model model, @ModelAttribute("createUser") User user,
             @RequestParam("hoidanitFile") MultipartFile file) {
         User update = this.userService.getUserById(user.getId());
         if (update != null) {
