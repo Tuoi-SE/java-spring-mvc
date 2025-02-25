@@ -83,13 +83,14 @@
                                                         </div>
                                                     </div>
                                                     <div class="mt-4 mb-0">
-                                                        <div class="d-grid"><button type="submit"
-                                                                class="btn btn-primary">Create Account</button></div>
+                                                        <div class="d-grid"> <button class="btn btn-primary btn-block">
+                                                                Create Account
+                                                            </button></div>
                                                     </div>
                                                 </form:form>
                                             </div>
                                             <div class="card-footer text-center py-3">
-                                                <div class="small"><a href="login.html">Have an account? Go to login</a>
+                                                <div class="small"><a href="/login">Have an account? Go to login</a>
                                                 </div>
                                             </div>
                                         </div>

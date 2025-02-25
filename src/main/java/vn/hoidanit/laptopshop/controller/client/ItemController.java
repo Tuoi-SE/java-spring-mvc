@@ -19,7 +19,7 @@ public class ItemController {
 
     @GetMapping("/product")
     public String getItemPage() {
-        return "/client/product/detail";
+        return "client/product/detail";
     }
 
     @GetMapping("/product/{id}")
@@ -27,6 +27,6 @@ public class ItemController {
         Product product = this.productService.getProductDetail(id).get();
         model.addAttribute("product", product);
         model.addAttribute("id", id);
-        return "/client/product/detail";
+        return "client/product/detail";
     }
 }
