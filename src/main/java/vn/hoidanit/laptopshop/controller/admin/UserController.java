@@ -42,14 +42,14 @@ public class UserController {
         List<User> users = this.userService.getAllUsers();
         model.addAttribute("displayUser", users);
         // model.addAttribute("createUser", new User());
-        return "/admin/user/home";
+        return "admin/user/home";
     }
 
     // Create Data
     @GetMapping("/admin/user/create")
     public String getCreateUser(Model model) {
         model.addAttribute("createUser", new User());
-        return "/admin/user/create";
+        return "admin/user/create";
     }
 
     @PostMapping(value = "/admin/user/create")
@@ -62,7 +62,7 @@ public class UserController {
         }
         // validate
         if (newUserBindingResult.hasErrors()) {
-            return "/admin/user/create";
+            return "admin/user/create";
         }
         String avatar = this.uploadService.savaUploadFile(file, "avatar");
         String hashPassword = this.passwordEncoder.encode(tuoi.getPassword());
@@ -79,7 +79,7 @@ public class UserController {
         User user = this.userService.getUserById(id);
         model.addAttribute("user", user);
         model.addAttribute("id", id);
-        return "/admin/user/detail";
+        return "admin/user/detail";
     }
 
     // Update Data
@@ -87,7 +87,7 @@ public class UserController {
     public String getUpdateUser(Model model, @PathVariable long id) {
         User user = this.userService.getUserById(id);
         model.addAttribute("updateUser", user);
-        return "/admin/user/update";
+        return "admin/user/update";
     }
 
     @PostMapping("/admin/user/update")
@@ -111,7 +111,7 @@ public class UserController {
     public String getDeleteUser(Model model, @PathVariable long id) {
         model.addAttribute("id", id);
         model.addAttribute("deleteUser", new User());
-        return "/admin/user/delete";
+        return "admin/user/delete";
     }
 
     @PostMapping("/admin/user/delete")

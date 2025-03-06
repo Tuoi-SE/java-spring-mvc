@@ -45,7 +45,7 @@ public class ProductController {
         Product product = this.productService.getProductDetail(id).get();
         model.addAttribute("product", product);
         model.addAttribute("id", id);
-        return "/admin/product/detail";
+        return "admin/product/detail";
     }
 
     // Create Product
@@ -65,7 +65,7 @@ public class ProductController {
         }
         // validate
         if (newProductBindingResult.hasErrors()) {
-            return "/admin/product/create";
+            return "admin/product/create";
         }
         String imagePr = this.uploadService.savaUploadFile(file, "product");
         create.setImage(imagePr);
@@ -78,7 +78,7 @@ public class ProductController {
     public String getUpdateProduct(Model model, @PathVariable long id) {
         Optional<Product> product = this.productService.getProductDetail(id);
         model.addAttribute("updateProduct", product.get());
-        return "/admin/product/update";
+        return "admin/product/update";
     }
 
     @PostMapping("/admin/product/update")
@@ -91,7 +91,7 @@ public class ProductController {
         }
         // validate
         if (newUserBindingResult.hasErrors()) {
-            return "/admin/product/update";
+            return "admin/product/update";
         }
         Product update = this.productService.getProductDetail(product.getId()).get();
         if (update != null) {
@@ -115,7 +115,7 @@ public class ProductController {
     public String getDeleteProduct(Model model, @PathVariable long id) {
         model.addAttribute("id", id);
         model.addAttribute("deleteProduct", new Product());
-        return "/admin/product/delete";
+        return "admin/product/delete";
     }
 
     @PostMapping("/admin/product/delete")

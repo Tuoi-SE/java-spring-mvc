@@ -104,7 +104,7 @@
                                         <h4 class="fw-bold mb-3">${product.name}</h4>
                                         <p class="mb-3">${product.factory}</p>
                                         <h5 class="fw-bold mb-3">
-                                            <fmt:formatNumber type="number" value=" ${product.price}" /> đ
+                                            <fmt:formatNumber type="number" value="${product.price}" /> đ
                                         </h5>
                                         <div class="d-flex mb-4">
                                             <i class="fa fa-star text-secondary"></i>
